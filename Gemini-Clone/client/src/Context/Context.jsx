@@ -1,22 +1,10 @@
 import { createContext, useState } from "react";
+import axios from 'axios'; // Import axios
 
 export const Context = createContext();
 
 const ContxtProvider = (props) => {
-    const [input, setInput] = useState("");
-    const [recentPrompt, setRecentPrompt] = useState("");
-    const [prevPrompt, setPrevPrompt] = useState([]);
-    const [showResult, setShowResult] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [resultData, setResultData] = useState("");
-
-    const newChat = () => {
-        setLoading(false);
-        setShowResult(false);
-        setResultData("");
-        setInput("");
-        setRecentPrompt(""); // Clear recent prompt as well
-    };
+    // ... (Your existing state variables)
 
     const onSent = async () => {
         if (!input.trim()) return;
@@ -24,27 +12,14 @@ const ContxtProvider = (props) => {
         setLoading(true);
 
         try {
-            const res = await fetch('https://clone-two-blush.vercel.app/api/generate', {
-                method: 'POST',
+            const res = await axios.post('https://clone-two-blush.vercel.app/api/generate', { prompt: input }, {
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ prompt: input }),
+                }
             });
 
-            if (!res.ok) {
-                let errorText = "An error occurred.";
-                try {
-                    errorText = await res.text();
-                } catch (textError) {
-                    console.error("Error parsing error response:", textError);
-                }
-                throw new Error(`HTTP error ${res.status}: ${errorText}`);
-            }
-
-            const data = await res.json();
-            setInput(''); // Clear input after successful send
-            setResultData(data.response);
+            setInput('');
+            setResultData(res.data.response);
             setRecentPrompt(input);
             setShowResult(true);
 
@@ -56,12 +31,24 @@ const ContxtProvider = (props) => {
             });
         } catch (error) {
             console.error("Fetch Error:", error);
-            setResultData(`Error: ${error.message}`);
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                setResultData(`Error: ${error.response.status} - ${error.response.data.error || error.message}`);
+                console.error("Response data:", error.response.data)
+            } else if (error.request) {
+                // The request was made but no response was received
+                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                // http.ClientRequest in node.js
+                setResultData(`Error: No response from server. Check network connection.`);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                setResultData(`Error: ${error.message}`);
+            }
         } finally {
             setLoading(false);
         }
     };
-
     const contextValue = {
         prevPrompt,
         setPrevPrompt,
