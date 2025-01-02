@@ -24,7 +24,7 @@ const ContxtProvider = (props) => {
         setLoading(true);
 
         try {
-            const res = await fetch('http://localhost:5000/api/generate', {
+            const res = await fetch('https://clone-two-blush.vercel.app/api/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
