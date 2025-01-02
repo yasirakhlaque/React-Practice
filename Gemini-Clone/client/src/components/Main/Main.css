@@ -1,0 +1,268 @@
+.main {
+    flex: 1;
+    position: relative;
+    min-height: 100vh;
+    padding: 2vh 7vh;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: grey;
+}
+
+.user-box {
+    height: 8vh;
+    width: 8vh;
+    border-radius: 50%;
+}
+
+.user-box img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: all .3s ease;
+}
+
+.user-box img:hover{
+    scale: 1.1;
+    box-shadow: 3px 3px 12px grey;
+}
+
+.hero {
+    max-width: 900px;
+    margin: auto;
+}
+
+.hero .greet {
+    color: grey;
+    margin: 7vh 0;
+    font-size: 2rem;
+    animation: loading .5s ease;
+}
+
+@keyframes loading {
+    0%{
+        transform: translateY(-300px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
+
+
+
+.hero .greet h1 {
+    background: -webkit-linear-gradient(15deg, pink, blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    padding: 12px;
+}
+
+.hero .cards .card {
+    background-color: rgb(221, 221, 221);
+    border-radius: 12px;
+    height: 30vh;
+    padding: 12px;
+    position: relative;
+    cursor: pointer;
+}
+
+.hero .cards .card:hover{
+    background-color: #d1cbcb;
+}
+
+.card p{
+    color: rgb(95, 93, 93);
+}
+
+.card i {
+    font-size: 1.5rem;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: aliceblue;
+    border-radius: 50%;
+    height: 7vh;
+    width: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease;
+}
+
+.card i:hover{
+    scale: 1.1;
+    rotate: 15deg;
+}
+
+.card1{
+    animation: load .5s ease ;
+}
+.card2{
+    animation: load .7s ease ;
+}
+.card3{
+    animation: load .9s ease ;
+}
+.card4{
+    animation: load 1.1s ease ;
+}
+
+@keyframes load {
+    0%{
+        transform: translateY(400px);
+    }
+    100%{
+        transform: translateY(0px);
+    }
+}
+
+.hero-bottom{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 900px;
+    padding: 2vh 5vh;
+    margin: auto;
+}
+
+.input-area{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.send{
+    width: 100%;
+    background-color: #dbdbdb;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 3vh;
+    border-radius: 24px;
+    padding: 5px 12px;
+    height: 6vh;
+}
+
+.send input{
+    border: none;
+    outline: none;
+    width: 100%;
+    background: transparent;
+}
+
+.send i{
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.input-area .disclamer{
+    color: gray;
+    margin-top: 2vh;
+}
+
+.result{
+    padding: 0px 5%;
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.result::-webkit-scrollbar{
+    display: none;
+}
+
+.result .result-title{
+    margin: 5vh 0;
+    display: flex;
+    align-items: center;
+    gap: 2vh;
+}
+
+.result-data {
+    display: flex;
+    align-items: start;
+    gap: 2vh;
+}
+
+.result-data img, 
+.result-title img{
+    height: 7vh;
+    width: 7vh;
+    border-radius: 50%;
+}
+
+.loading{
+    display: flex;
+    width: 100%;
+    gap: 2vh;
+    flex-direction: column;
+}
+
+.loading hr{
+    border-radius: 4px;
+    border: none;
+    background-color: #f6f7f8;
+    background: linear-gradient(to right, #9ed7ff, #ffffff, #9ed7ff);
+    background-size:800px 50px;
+    height: 20px;
+    animation: loader 3s infinite linear;
+}
+
+@keyframes loader {
+    0%{
+        background-position: -800px 0px;
+    }
+    100%{
+        background-position: 800px 0px;
+    }
+}
+
+.result-data p{
+    line-height: 1.6;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+@media (max-width:768px) {
+    .main{
+        padding: 0 1vh;
+    }
+    .result{
+        padding: 0;
+    }
+    .hero .greet{
+        font-size: 1rem;
+    }
+    .cards{
+        padding: 1px;
+    }
+    .hero img{
+        height: 3vh;
+        width: 3vh;
+    }
+    .result-data p{
+        font-size: .8rem;
+        line-height: 1;
+    }
+    .hero-bottom{
+        width: 70%;
+        padding: 1vh 2vh;
+    }
+}
+
+@media (max-width:480px) {
+    .hero-bottom{
+        width: 65%;
+    }
+}
