@@ -1,19 +1,20 @@
 require('dotenv').config(); // Load environment variables from .env
 const express = require('express');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const cors = require('cors');
+const cors = require('cors'); // Include cors
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-// CORS Configuration
+// Configure CORS to allow requests from your frontend origin
+const allowedOrigins = ['https://front-gamma-one.vercel.app']; // Replace with your frontend URL
 const corsOptions = {
-    origin: 'https://front-gamma-one.vercel.app', // Your frontend URL
-    methods: ['GET', 'POST'], // Allow GET and POST requests
-    allowedHeaders: ['Content-Type'], // Allow Content-Type header
-};
+  origin: allowedOrigins,
+  optionsSuccessStatus: 200, // some legacy browsers require this
+}
 
-app.use(cors(corsOptions)); // Enable Cross-Origin Resource Sharing with specific origin
+app.use(cors(corsOptions)); // Apply CORS middleware
+
 app.use(express.json()); // Enable parsing JSON request bodies
 
 const apiKey = process.env.GEMINI_API_KEY; // Get API key from .env
