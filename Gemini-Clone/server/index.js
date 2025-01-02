@@ -6,7 +6,14 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors()); // Enable Cross-Origin Resource Sharing
+// CORS Configuration
+const corsOptions = {
+    origin: 'https://front-gamma-one.vercel.app', // Your frontend URL
+    methods: ['GET', 'POST'], // Allow GET and POST requests
+    allowedHeaders: ['Content-Type'], // Allow Content-Type header
+};
+
+app.use(cors(corsOptions)); // Enable Cross-Origin Resource Sharing with specific origin
 app.use(express.json()); // Enable parsing JSON request bodies
 
 const apiKey = process.env.GEMINI_API_KEY; // Get API key from .env
@@ -26,6 +33,7 @@ const generationConfig = {
     maxOutputTokens: 8192,
 };
 
+// Handle API call for generation
 app.post('/api/generate', async (req, res) => {
     try {
         const { prompt } = req.body;
